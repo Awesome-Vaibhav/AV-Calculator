@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Glowing Outer Accent Rings - celestial cosmic energy paths -->
+    <!-- Bottom-Left Blue Neon Ripple -->
+    <path
+        android:strokeColor="#00E5FF"
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round"
+        android:pathData="M 22,60 A 34,34 0 0 0 48,86"
+        android:alpha="0.85" />
+
+    <!-- Bottom-Right Orange Neon Ripple -->
+    <path
+        android:strokeColor="#FF6D00"
+        android:strokeWidth="2.0"
+        android:strokeLineCap="round"
+        android:pathData="M 60,86 A 34,34 0 0 0 86,60"
+        android:alpha="0.75" />
+
+    <!-- Outer Rounded-Square Calculator Container - Glossy dark plates -->
+    <path
+        android:fillColor="#10121A"
+        android:strokeColor="#303F5F"
+        android:strokeWidth="1.5"
+        android:pathData="M 34,20 h 40 a 14,14 0 0 1 14,14 v 40 a 14,14 0 0 1 -14,14 h -40 a 14,14 0 0 1 -14,-14 v -40 a 14,14 0 0 1 14,-14 z" />
+
+    <!-- TILE 1: Top-Left (Premium dark slate with white plus) -->
+    <path
+        android:fillColor="#181B24"
+        android:pathData="M 31,23 h 14 a 8,8 0 0 1 8,8 v 14 a 8,8 0 0 1 -8,8 h -14 a 8,8 0 0 1 -8,-8 v -14 a 8,8 0 0 1 8,-8 z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:pathData="M 38,32 v 12 M 32,38 h 12" />
+
+    <!-- TILE 2: Top-Right (Premium dark slate with white minus) -->
+    <path
+        android:fillColor="#181B24"
+        android:pathData="M 63,23 h 14 a 8,8 0 0 1 8,8 v 14 a 8,8 0 0 1 -8,8 h -14 a 8,8 0 0 1 -8,-8 v -14 a 8,8 0 0 1 8,-8 z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:pathData="M 64,38 h 12" />
+
+    <!-- TILE 3: Bottom-Left (Premium dark slate with white multiply) -->
+    <path
+        android:fillColor="#181B24"
+        android:pathData="M 31,55 h 14 a 8,8 0 0 1 8,8 v 14 a 8,8 0 0 1 -8,8 h -14 a 8,8 0 0 1 -8,-8 v -14 a 8,8 0 0 1 8,-8 z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:pathData="M 33.5,65.5 l 9,9 M 42.5,65.5 l -9,9" />
+
+    <!-- TILE 4: Bottom-Right (Vibrant glowing orange with white equals) -->
+    <path
+        android:pathData="M 63,55 h 14 a 8,8 0 0 1 8,8 v 14 a 8,8 0 0 1 -8,8 h -14 a 8,8 0 0 1 -8,-8 v -14 a 8,8 0 0 1 8,-8 z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="55"
+                android:startY="55"
+                android:endX="85"
+                android:endY="85"
+                android:type="linear">
+                <item
+                    android:color="#FFB300"
+                    android:offset="0.0" />
+                <item
+                    android:color="#FF6F00"
+                    android:offset="0.7" />
+                <item
+                    android:color="#D84315"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.2"
+        android:strokeLineCap="round"
+        android:pathData="M 64,67.5 h 12 M 64,72.5 h 12" />
+
+</vector>

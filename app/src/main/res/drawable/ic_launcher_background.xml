@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Base Cosmic Space Deep Indigo/Violet Gradient -->
+    <path android:pathData="M0,0h108v108h-108z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108"
+                android:type="linear">
+                <item
+                    android:color="#020308"
+                    android:offset="0.0" />
+                <item
+                    android:color="#080F26"
+                    android:offset="0.45" />
+                <item
+                    android:color="#121D3F"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Cyan/Blue Nebula Gas Cloud (Top-Right) -->
+    <path
+        android:pathData="M 54,54 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"
+        android:alpha="0.28">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="80"
+                android:startY="20"
+                android:endX="45"
+                android:endY="65"
+                android:type="radial"
+                android:gradientRadius="45">
+                <item
+                    android:color="#00D2FF"
+                    android:offset="0.0" />
+                <item
+                    android:color="#000000"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Deep Blue/Purple Nebula Cloud (Center & Bottom-Left) -->
+    <path
+        android:pathData="M 40,70 m -50,0 a 50,50 0 1,1 100,0 a 50,50 0 1,1 -100,0"
+        android:alpha="0.32">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="15"
+                android:startY="85"
+                android:endX="55"
+                android:endY="45"
+                android:type="radial"
+                android:gradientRadius="55">
+                <item
+                    android:color="#7B1FA2"
+                    android:offset="0.0" />
+                <item
+                    android:color="#1976D2"
+                    android:offset="0.6" />
+                <item
+                    android:color="#000000"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Subtle Orange Starburst Flare (Lower-Right) mirroring the original picture's warm glow -->
+    <path
+        android:pathData="M 82,82 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0"
+        android:alpha="0.22">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="82"
+                android:startY="82"
+                android:endX="62"
+                android:endY="62"
+                android:type="radial"
+                android:gradientRadius="35">
+                <item
+                    android:color="#FF7D00"
+                    android:offset="0.0" />
+                <item
+                    android:color="#000000"
+                    android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Cosmic Stars/Dust layer -->
+    <!-- Tiny Twinkles -->
+    <path
+        android:fillColor="#80D8FF"
+        android:alpha="0.85"
+        android:pathData="M 15,22 a 0.8,0.8 0 1 1 -1.6 0 a 0.8,0.8 0 1 1 1.6 0 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.95"
+        android:pathData="M 85,15 a 1.0,1.0 0 1 1 -2 0 a 1.0,1.0 0 1 1 2 0 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.7"
+        android:pathData="M 95,45 a 0.7,0.7 0 1 1 -1.4 0 a 0.7,0.7 0 1 1 1.4 0 Z" />
+    <path
+        android:fillColor="#80D8FF"
+        android:alpha="0.9"
+        android:pathData="M 25,82 a 1.2,1.2 0 1 1 -2.4 0 a 1.2,1.2 0 1 1 2.4 0 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.8"
+        android:pathData="M 12,55 a 0.7,0.7 0 1 1 -1.4 0 a 0.7,0.7 0 1 1 1.4 0 Z" />
+    <path
+        android:fillColor="#E0F7FA"
+        android:alpha="0.9"
+        android:pathData="M 74,90 a 0.9,0.9 0 1 1 -1.8 0 a 0.9,0.9 0 1 1 1.8 0 Z" />
+
+    <!-- Shimmering Twinkling Star (4-point crosshairs) -->
+    <!-- Star 1 (Top-Left) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.95"
+        android:pathData="M 28,15 L 29,18 L 32,19 L 29,20 L 28,23 L 27,20 L 24,19 L 27,18 Z" />
+    <!-- Star 2 (Middle-Right) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.95"
+        android:pathData="M 82,35 L 83,37 L 85,38 L 83,39 L 82,41 L 81,39 L 79,38 L 81,37 Z" />
+
+</vector>

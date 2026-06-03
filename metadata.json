@@ -1,0 +1,6 @@
+{
+  "name": "AV Calculator",
+  "description": "A feature-rich calculation and conversion toolkit compiled into a lightweight app, featuring basic and scientific calculators, converters, financial calculators, and more.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
