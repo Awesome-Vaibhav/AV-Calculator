@@ -10,43 +10,79 @@ A feature-rich calculator app combining scientific calculations, unit conversion
 
 </div>---
 
+📱 About
+
+AV Calculator is a modern, lightweight, and feature-rich calculator application that combines advanced mathematical tools, converters, and financial calculators into a single app.
+
+---
+
 ✨ Features
 
 🔢 Basic Calculator
 
+- Addition (+)
+- Subtraction (−)
+- Multiplication (×)
+- Division (÷)
+- Percentage (%)
+- Decimal Calculations
+
 🧪 Scientific Calculator
+
+- Trigonometric Functions
+- Logarithms
+- Powers & Exponents
+- Square Root & Cube Root
+- Factorial
+- π and e Constants
 
 📏 Unit Converter
 
+- Length
+- Weight
+- Area
+- Volume
+- Temperature
+- Speed
+- Time
+- Data Storage
+
 💱 Currency Converter
+
+- Real-Time Currency Conversion
+- Supports Major World Currencies
 
 🎂 Age Calculator
 
-💰 EMI Calculator
+- Exact Age Calculation
+- Date Difference Calculator
 
-🏷 GST Calculator
+💰 Financial Tools
 
-🎉 Discount Calculator
+- EMI Calculator
+- GST Calculator
+- Discount Calculator
+- Mortgage Calculator
+- Tip Calculator
 
-🏠 Mortgage Calculator
+⚖ Health & Utility
 
-🍽 Split Bill Calculator
+- BMI Calculator
+- Fuel Calculator
+- Split Bill Calculator
 
-⚖ BMI Calculator
+🎨 User Experience
 
-⛽ Fuel Calculator
-
-💵 Tip Calculator
-
-🌙 Dark Mode Support
-
-📜 Calculation History
-
-⚡ Fast & Lightweight
+- Material Design UI
+- Dark Mode Support
+- Calculation History
+- One-Tap Result Copy
+- Lightweight & Fast
+- Smooth Performance
 
 ---
 
-📱 Application Information
+📊 Application Information
 
 Property| Value
 App Name| AV Calculator
@@ -57,7 +93,18 @@ Developer| Vaibhav
 
 🚀 Installation
 
-Download APK → Install → Open AV Calculator → Start Calculating
+1. Download the APK.
+2. Install it on your Android device.
+3. Open AV Calculator.
+4. Start calculating.
+
+---
+
+🤝 Contributing
+
+Contributions, bug reports, feature requests, and suggestions are welcome.
+
+Feel free to fork the repository and submit a Pull Request.
 
 ---
 
@@ -69,7 +116,7 @@ Telegram: https://t.me/BlackDex
 
 ---
 
-<div align="center">⭐ If you like this project, give it a star!
+<div align="center">⭐ If you like this project, consider giving it a star!
 
 Made with ❤️ by Vaibhav
 
