@@ -26,6 +26,10 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
     // Helper formatter
     private val decimalFormat = DecimalFormat("#.#######", DecimalFormatSymbols(Locale.US))
 
+    private fun formatValue(value: Double): String {
+        return com.example.util.NumberFormatter.formatNumberStringIndianStyle(decimalFormat.format(value))
+    }
+
     // Calculator History Flow
     val historyState: StateFlow<List<HistoryEntity>> = repository.allHistory
         .stateIn(
@@ -188,7 +192,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
             if (res.isNaN() || res.isInfinite()) {
                 _previewResult.value = ""
             } else {
-                val formatted = decimalFormat.format(res)
+                val formatted = formatValue(res)
                 if (formatted != currentExpr) {
                     _previewResult.value = formatted
                 } else {
@@ -205,7 +209,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         if (currentExpr.isEmpty()) return
         try {
             val res = MathEvaluator.evaluate(currentExpr, isDegreeMode.value)
-            val formatted = if (res.isNaN()) "Error" else decimalFormat.format(res)
+            val formatted = if (res.isNaN()) "Error" else formatValue(res)
             _calcResult.value = formatted
             _previewResult.value = "" // Clear live preview when result is committed!
 
@@ -309,7 +313,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         } catch (e: Exception) {
             0.0
         }
-        _unitToValue.value = decimalFormat.format(res)
+        _unitToValue.value = formatValue(res)
     }
 
     // Converters helper logic
@@ -575,7 +579,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val inUsd = amount / rateFromUsd
         val result = inUsd * rateToUsd
 
-        _currencyToValue.value = decimalFormat.format(result)
+        _currencyToValue.value = formatValue(result)
     }
 
 
@@ -684,9 +688,9 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val totalRepayment = emi * totalMonths
         val totalInterest = totalRepayment - p
 
-        _emiMonthlyPayment.value = decimalFormat.format(emi)
-        _emiTotalInterest.value = decimalFormat.format(totalInterest)
-        _emiTotalRepayment.value = decimalFormat.format(totalRepayment)
+        _emiMonthlyPayment.value = formatValue(emi)
+        _emiTotalInterest.value = formatValue(totalInterest)
+        _emiTotalRepayment.value = formatValue(totalRepayment)
     }
 
 
@@ -727,15 +731,15 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
             // Add GST
             val amount = price * (rate / 100.0)
             val net = price + amount
-            _gstAmount.value = decimalFormat.format(amount)
-            _gstNetPrice.value = decimalFormat.format(net)
+            _gstAmount.value = formatValue(amount)
+            _gstNetPrice.value = formatValue(net)
         } else {
             // Remove GST
             // Price is inclusive of GST. Original Price = Price / (1 + Rate/100)
             val original = price / (1.0 + (rate / 100.0))
             val amount = price - original
-            _gstAmount.value = decimalFormat.format(amount)
-            _gstNetPrice.value = decimalFormat.format(original)
+            _gstAmount.value = formatValue(amount)
+            _gstNetPrice.value = formatValue(original)
         }
     }
 
@@ -772,8 +776,8 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val saved = price * (pct / 100.0)
         val finalP = price - saved
 
-        _discountAmountSaved.value = decimalFormat.format(saved)
-        _discountFinalPrice.value = decimalFormat.format(finalP)
+        _discountAmountSaved.value = formatValue(saved)
+        _discountFinalPrice.value = formatValue(finalP)
     }
 
 
@@ -824,8 +828,8 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val totalRepayment = mPayment * months
         val totalInterest = totalRepayment - loanAmount
 
-        _mortgageMonthlyPayment.value = decimalFormat.format(mPayment)
-        _mortgageTotalInterest.value = decimalFormat.format(totalInterest)
+        _mortgageMonthlyPayment.value = formatValue(mPayment)
+        _mortgageTotalInterest.value = formatValue(totalInterest)
     }
 
 
@@ -871,9 +875,9 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val grandTotal = bill + totalTip
         val perPerson = grandTotal / people
 
-        _splitTotalTipAmount.value = decimalFormat.format(totalTip)
-        _splitTotalPayable.value = decimalFormat.format(grandTotal)
-        _splitPerPersonBill.value = decimalFormat.format(perPerson)
+        _splitTotalTipAmount.value = formatValue(totalTip)
+        _splitTotalPayable.value = formatValue(grandTotal)
+        _splitPerPersonBill.value = formatValue(perPerson)
     }
 
 
@@ -908,7 +912,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
 
         val hMeters = h / 100.0
         val bmi = w / (hMeters * hMeters)
-        _bmiValue.value = decimalFormat.format(bmi)
+        _bmiValue.value = formatValue(bmi)
 
         _bmiCategory.value = when {
             bmi < 18.5 -> "Underweight"
@@ -953,7 +957,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val liters = dist / eff
         val cost = liters * pr
 
-        _fuelTotalCost.value = decimalFormat.format(cost)
+        _fuelTotalCost.value = formatValue(cost)
     }
 
 
@@ -995,7 +999,7 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         val perPersonTip = totalTip / people
         val perPersonTotal = (bill + totalTip) / people
 
-        _tipSingleTip.value = decimalFormat.format(totalTip)
-        _tipSplitCostPerPerson.value = decimalFormat.format(perPersonTotal)
+        _tipSingleTip.value = formatValue(totalTip)
+        _tipSplitCostPerPerson.value = formatValue(perPersonTotal)
     }
 }

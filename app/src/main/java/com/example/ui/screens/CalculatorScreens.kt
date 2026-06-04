@@ -124,6 +124,7 @@ fun BasicCalculatorScreen(
                     ),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     readOnly = true,
+                    visualTransformation = com.example.util.IndianGroupingVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     decorationBox = { innerTextField ->
                         Box(
@@ -349,6 +350,7 @@ fun ScientificCalculatorScreen(
                     ),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     readOnly = true,
+                    visualTransformation = com.example.util.IndianGroupingVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     decorationBox = { innerTextField ->
                         Box(

@@ -8,6 +8,7 @@ object MathEvaluator {
         
         // Preprocess expression and replace visual indicators
         var expr = expression
+            .replace(",", "")
             .replace("×", "*")
             .replace("÷", "/")
             .replace("−", "-")
