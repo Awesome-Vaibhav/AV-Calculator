@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="banner.png" alt="AV Calculator Banner" width="100%">
+
 # 🧮 AV Calculator
 
 ### Powerful • Fast • Modern Android Calculator
