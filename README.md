@@ -1,14 +1,16 @@
-<div align="center">🧮 AV Calculator
+<div align="center">
 
-Powerful • Fast • Modern Android Calculator
+# 🧮 AV Calculator
+
+### Powerful • Fast • Modern Android Calculator
 
 A feature-rich calculator app combining scientific calculations, unit conversions, and financial tools in one place.
 
-"Platform" (https://img.shields.io/badge/Platform-Android-green?style=for-the-badge)
-"Version" (https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)
-"Status" (https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Android-green?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
 
-</div>---
+</div>
 
 📱 About
 
