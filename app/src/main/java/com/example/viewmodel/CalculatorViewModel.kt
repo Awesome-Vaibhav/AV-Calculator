@@ -75,6 +75,17 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
         updateLivePreview()
     }
 
+    fun pasteExpression(textToPaste: String) {
+        val currentVal = _expressionValue.value
+        // Clean any commas or spaces that might interfere with expression parsing
+        val cleaned = textToPaste.replace(",", "").replace("\u2060", "").trim()
+        val newVal = insertToken(currentVal, cleaned)
+        _expressionValue.value = newVal
+        _expression.value = newVal.text
+        _calcResult.value = "" // Clear result for new editing
+        updateLivePreview()
+    }
+
     private fun insertToken(expressionVal: TextFieldValue, token: String): TextFieldValue {
         val text = expressionVal.text
         val selection = expressionVal.selection
@@ -123,10 +134,27 @@ class CalculatorViewModel(private val repository: HistoryRepository) : ViewModel
     }
 
     fun onCalcInput(token: String) {
-        val currentVal = _expressionValue.value
-        if (token != "=") {
+        val prevResult = _calcResult.value
+        if (prevResult.isNotEmpty() && prevResult != "Error") {
+            val isOperator = token in listOf("+", "−", "×", "÷", "%")
+            if (isOperator) {
+                // Continue calculation with previous result as base
+                val cleanResult = prevResult.replace(",", "").replace("\u2060", "").trim()
+                _expressionValue.value = TextFieldValue(cleanResult, TextRange(cleanResult.length))
+                _expression.value = cleanResult
+                _calcResult.value = "" // Clear so it doesn't trigger again
+            } else if (token != "=" && token != "deg/rad") {
+                // If it's a number, parenthesis, or function, start a brand new calculation
+                _expressionValue.value = TextFieldValue("")
+                _expression.value = ""
+                _calcResult.value = ""
+                _previewResult.value = ""
+            }
+        } else if (token != "=") {
             _calcResult.value = "" // Typing clears committed final result
         }
+
+        val currentVal = _expressionValue.value
         when (token) {
             "AC" -> {
                 _expressionValue.value = TextFieldValue("")

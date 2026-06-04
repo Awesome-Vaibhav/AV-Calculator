@@ -43,12 +43,17 @@ object NumberFormatter {
             formatNumberStringIndianStyle(matchResult.value)
         }
     }
+
+    fun insertWordJoiners(text: String): String {
+        return text.replace(",", "\u2060,\u2060")
+    }
 }
 
 class IndianGroupingVisualTransformation : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
         val originalText = text.text
-        val formattedText = NumberFormatter.formatExpressionWithCommas(originalText)
+        val baseFormatted = NumberFormatter.formatExpressionWithCommas(originalText)
+        val formattedText = NumberFormatter.insertWordJoiners(baseFormatted)
 
         val origToTransformed = IntArray(originalText.length + 1)
         val transformedToOrig = IntArray(formattedText.length + 1)
@@ -62,7 +67,7 @@ class IndianGroupingVisualTransformation : VisualTransformation {
                 transformedToOrig[transIdx] = origIdx
                 origIdx++
                 transIdx++
-            } else if (formattedText[transIdx] == ',') {
+            } else if (formattedText[transIdx] == ',' || formattedText[transIdx] == '\u2060') {
                 transformedToOrig[transIdx] = origIdx
                 transIdx++
             } else {

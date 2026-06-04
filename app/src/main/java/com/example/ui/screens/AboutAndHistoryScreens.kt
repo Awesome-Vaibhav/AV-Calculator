@@ -3,6 +3,8 @@ package com.example.ui.screens
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.db.HistoryEntity
@@ -51,13 +54,14 @@ fun AboutScreen(
             )
         }
     ) { paddingValues ->
+        val scrollState = androidx.compose.foundation.rememberScrollState()
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(24.dp),
+                .verticalScroll(scrollState)
+                .padding(horizontal = 24.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
         ) {
             AVLogoIcon(
                 modifier = Modifier.size(88.dp),
@@ -67,7 +71,7 @@ fun AboutScreen(
                 symbolSize = 26.sp
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             Text(
                 text = "AV Calculator",
@@ -77,12 +81,12 @@ fun AboutScreen(
             )
 
             Text(
-                text = "Version 1.0 Professional Pro",
+                text = "Version 2.0 Professional Pro",
                 fontSize = 12.sp,
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
             Text(
                 text = "A consolidated toolkit featuring advanced basic & scientific calculators, multi-purpose units and live currency converters, and diverse personal trackers.",
@@ -93,7 +97,61 @@ fun AboutScreen(
                 modifier = Modifier.padding(horizontal = 12.dp)
             )
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // What's New in v2.0 Updates
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "What's New in Version 2.0",
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 13.sp
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    val updates = listOf(
+                        "🇮🇳  **Indian Style Formatting**: Lakhs & Crores grouping layout on basic and scientific modes.",
+                        "📋  **Clipboard Paste Feature**: Custom floating paste button and double click/long-press actions to directly enter values copy-pasted from other apps.",
+                        "🚀  **Consecutive Calculations**: Operators like +, −, ×, ÷, % now instantly feed the previous evaluation result as a base for consecutive expressions.",
+                        "📐  **Smarter Word Wrapping**: Clean layouts without weird split digits across commas when rendering large values.",
+                        "🎨  **Adaptive Framework Updates**: Fluid layout densities and interactive touch elements matching modern devices."
+                    )
+
+                    updates.forEachIndexed { index, update ->
+                        val parts = update.split("**")
+                        if (parts.size == 3) {
+                            Text(
+                                text = androidx.compose.ui.text.buildAnnotatedString {
+                                    append(parts[0])
+                                    withStyle(style = androidx.compose.ui.text.SpanStyle(fontWeight = FontWeight.Bold)) {
+                                        append(parts[1])
+                                    }
+                                    append(parts[2])
+                                },
+                                fontSize = 11.5.sp,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.82f),
+                                lineHeight = 16.sp,
+                                modifier = Modifier.padding(bottom = if (index < updates.lastIndex) 8.dp else 0.dp)
+                            )
+                        } else {
+                            Text(
+                                text = update,
+                                fontSize = 11.5.sp,
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.82f),
+                                lineHeight = 16.sp,
+                                modifier = Modifier.padding(bottom = if (index < updates.lastIndex) 8.dp else 0.dp)
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             Card(
                 shape = RoundedCornerShape(16.dp),

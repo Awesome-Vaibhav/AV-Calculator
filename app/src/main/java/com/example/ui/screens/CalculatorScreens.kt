@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Refresh
@@ -128,7 +129,25 @@ fun BasicCalculatorScreen(
                     modifier = Modifier.fillMaxWidth(),
                     decorationBox = { innerTextField ->
                         Box(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .combinedClickable(
+                                    onClick = { /* Allow selection/focus */ },
+                                    onLongClick = {
+                                        val text = getClipboardText(context)
+                                        if (text != null) {
+                                            val cleaned = text.filter { it.isDigit() || it in ".,+-*/÷×−%() " }
+                                            if (cleaned.isNotEmpty()) {
+                                                viewModel.pasteExpression(cleaned)
+                                                Toast.makeText(context, "Pasted: $cleaned", Toast.LENGTH_SHORT).show()
+                                            } else {
+                                                Toast.makeText(context, "No valid number in clipboard", Toast.LENGTH_SHORT).show()
+                                            }
+                                        } else {
+                                            Toast.makeText(context, "Clipboard empty", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                ),
                             contentAlignment = Alignment.CenterEnd
                         ) {
                             if (expressionValue.text.isEmpty()) {
@@ -154,16 +173,45 @@ fun BasicCalculatorScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // History Icon Button (on the left, above the result value)
-                    IconButton(
-                        onClick = onNavigateToHistory,
-                        modifier = Modifier.size(40.dp)
+                    // History and Paste Icon Buttons (on the left, above the result value)
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.History,
-                            contentDescription = "Calculation History",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
+                        IconButton(
+                            onClick = onNavigateToHistory,
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.History,
+                                contentDescription = "Calculation History",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {
+                                val text = getClipboardText(context)
+                                if (text != null) {
+                                    val cleaned = text.filter { it.isDigit() || it in ".,+-*/÷×−%() " }
+                                    if (cleaned.isNotEmpty()) {
+                                        viewModel.pasteExpression(cleaned)
+                                        Toast.makeText(context, "Pasted: $cleaned", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, "No valid number in clipboard", Toast.LENGTH_SHORT).show()
+                                    }
+                                } else {
+                                    Toast.makeText(context, "Clipboard empty", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            modifier = Modifier.size(40.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ContentPaste,
+                                contentDescription = "Paste from Clipboard",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
 
                     // Result (on the right)
@@ -176,7 +224,7 @@ fun BasicCalculatorScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "= $calcResult",
+                                text = "= ${com.example.util.NumberFormatter.insertWordJoiners(calcResult)}",
                                 fontSize = 28.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary,
@@ -191,7 +239,7 @@ fun BasicCalculatorScreen(
                         }
                     } else if (previewResult.isNotEmpty()) {
                         Text(
-                            text = "= $previewResult",
+                            text = "= ${com.example.util.NumberFormatter.insertWordJoiners(previewResult)}",
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Normal,
                             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f),
@@ -290,6 +338,31 @@ fun ScientificCalculatorScreen(
                     }
                 },
                 actions = {
+                    IconButton(
+                        onClick = {
+                            val text = getClipboardText(context)
+                            if (text != null) {
+                                val cleaned = text.filter { it.isDigit() || it in ".,+-*/÷×−%() " }
+                                if (cleaned.isNotEmpty()) {
+                                    viewModel.pasteExpression(cleaned)
+                                    Toast.makeText(context, "Pasted: $cleaned", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(context, "No valid number in clipboard", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(context, "Clipboard empty", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ContentPaste,
+                            contentDescription = "Paste from Clipboard",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
                     Surface(
                         shape = RoundedCornerShape(12.dp),
                         color = if (isDegree) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
@@ -354,7 +427,25 @@ fun ScientificCalculatorScreen(
                     modifier = Modifier.fillMaxWidth(),
                     decorationBox = { innerTextField ->
                         Box(
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .combinedClickable(
+                                    onClick = { /* Allow selection/focus */ },
+                                    onLongClick = {
+                                        val text = getClipboardText(context)
+                                        if (text != null) {
+                                            val cleaned = text.filter { it.isDigit() || it in ".,+-*/÷×−%() " }
+                                            if (cleaned.isNotEmpty()) {
+                                                viewModel.pasteExpression(cleaned)
+                                                Toast.makeText(context, "Pasted: $cleaned", Toast.LENGTH_SHORT).show()
+                                            } else {
+                                                Toast.makeText(context, "No valid number in clipboard", Toast.LENGTH_SHORT).show()
+                                            }
+                                        } else {
+                                            Toast.makeText(context, "Clipboard empty", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }
+                                ),
                             contentAlignment = Alignment.CenterEnd
                         ) {
                             if (expressionValue.text.isEmpty()) {
@@ -383,7 +474,7 @@ fun ScientificCalculatorScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "= $calcResult",
+                            text = "= ${com.example.util.NumberFormatter.insertWordJoiners(calcResult)}",
                             fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary,
@@ -398,7 +489,7 @@ fun ScientificCalculatorScreen(
                     }
                 } else if (previewResult.isNotEmpty()) {
                     Text(
-                        text = "= $previewResult",
+                        text = "= ${com.example.util.NumberFormatter.insertWordJoiners(previewResult)}",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Normal,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f),
@@ -514,4 +605,19 @@ fun copyToClipboard(context: Context, text: String) {
     val clip = ClipData.newPlainText("AV Calculator Result", text)
     clipboard.setPrimaryClip(clip)
     Toast.makeText(context, "Copied: $text", Toast.LENGTH_SHORT).show()
+}
+
+// Utility Clipboard paste
+fun getClipboardText(context: Context): String? {
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    if (clipboard.hasPrimaryClip()) {
+        val clip = clipboard.primaryClip
+        if (clip != null && clip.itemCount > 0) {
+            val text = clip.getItemAt(0).text
+            if (text != null) {
+                return text.toString()
+            }
+        }
+    }
+    return null
 }
