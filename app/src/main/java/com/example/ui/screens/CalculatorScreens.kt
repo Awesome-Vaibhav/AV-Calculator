@@ -6,6 +6,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
@@ -17,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Backspace
 import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Menu
@@ -44,6 +46,7 @@ import com.example.viewmodel.CalculatorViewModel
 fun BasicCalculatorScreen(
     viewModel: CalculatorViewModel,
     onNavigateToMenu: () -> Unit,
+    onNavigateToScientific: () -> Unit,
     onNavigateToHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -53,11 +56,11 @@ fun BasicCalculatorScreen(
     val context = LocalContext.current
 
     val keys = listOf(
-        "AC", "( )", "%", "÷",
+        "AC", "⌫", "%", "÷",
         "7", "8", "9", "×",
         "4", "5", "6", "−",
         "1", "2", "3", "+",
-        "C", "0", ".", "="
+        "toggle_sci", "0", ".", "="
     )
 
     Scaffold(
@@ -258,19 +261,14 @@ fun BasicCalculatorScreen(
             ) {
                 items(keys) { key ->
                     val isOperator = key in listOf("÷", "×", "−", "+", "=")
-                    val isAction = key in listOf("AC", "C", "(", ")", "( )", "%")
-                    
-                    val containerColor = when {
-                        key == "=" -> MaterialTheme.colorScheme.primary
-                        isOperator -> MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
-                        isAction -> MaterialTheme.colorScheme.surface
-                        else -> MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
-                    }
+                    val isAction = key in listOf("AC", "⌫", "%", "toggle_sci")
+                    val isNumber = !isOperator && !isAction
 
+                    val containerColor = if (key == "=") MaterialTheme.colorScheme.primary else Color.Transparent
                     val contentColor = when {
                         key == "=" -> Color.White
-                        isOperator -> MaterialTheme.colorScheme.primary
-                        else -> MaterialTheme.colorScheme.onBackground
+                        isNumber -> MaterialTheme.colorScheme.onBackground
+                        else -> MaterialTheme.colorScheme.primary
                     }
 
                     Box(
@@ -280,20 +278,66 @@ fun BasicCalculatorScreen(
                             .clip(CircleShape)
                             .background(containerColor)
                             .combinedClickable(
-                                onClick = { viewModel.onCalcInput(key) },
+                                onClick = {
+                                    when (key) {
+                                        "⌫" -> viewModel.onCalcInput("C")
+                                        "toggle_sci" -> onNavigateToScientific()
+                                        else -> viewModel.onCalcInput(key)
+                                    }
+                                },
                                 onLongClick = {
-                                    if (key == "C") {
+                                    if (key == "⌫") {
                                         viewModel.onCalcInput("AC")
                                     }
                                 }
                             )
                     ) {
-                        Text(
-                            text = key,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = contentColor
-                        )
+                        when (key) {
+                            "⌫" -> {
+                                Icon(
+                                    imageVector = Icons.Default.Backspace,
+                                    contentDescription = "Backspace",
+                                    tint = contentColor,
+                                    modifier = Modifier.size(26.dp)
+                                )
+                            }
+                            "toggle_sci" -> {
+                                Box(
+                                    modifier = Modifier.size(24.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(13.dp)
+                                            .align(Alignment.TopEnd)
+                                            .border(1.5.dp, contentColor, RoundedCornerShape(3.dp))
+                                    )
+                                    Box(
+                                        modifier = Modifier
+                                            .size(13.dp)
+                                            .align(Alignment.BottomStart)
+                                            .border(1.5.dp, contentColor, RoundedCornerShape(3.dp))
+                                    )
+                                }
+                            }
+                            else -> {
+                                Text(
+                                    text = key,
+                                    fontSize = when {
+                                        key == "=" -> 34.sp
+                                        isNumber -> 32.sp
+                                        key == "AC" -> 24.sp
+                                        else -> 32.sp
+                                    },
+                                    fontWeight = when {
+                                        key == "=" -> FontWeight.Normal
+                                        isNumber -> FontWeight.Normal
+                                        else -> FontWeight.Normal
+                                    },
+                                    color = contentColor
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -315,11 +359,11 @@ fun ScientificCalculatorScreen(
     val context = LocalContext.current
 
     val basicKeys = listOf(
-        "AC", "( )", "%", "÷",
+        "AC", "⌫", "%", "÷",
         "7", "8", "9", "×",
         "4", "5", "6", "−",
         "1", "2", "3", "+",
-        "C", "0", ".", "="
+        "toggle_basic", "0", ".", "="
     )
 
     val scientificKeys = listOf(
@@ -555,19 +599,14 @@ fun ScientificCalculatorScreen(
             ) {
                 items(basicKeys) { key ->
                     val isOperator = key in listOf("÷", "×", "−", "+", "=")
-                    val isAction = key in listOf("AC", "C", "(", ")", "( )", "%")
+                    val isAction = key in listOf("AC", "⌫", "%", "toggle_basic")
+                    val isNumber = !isOperator && !isAction
 
-                    val containerColor = when {
-                        key == "=" -> MaterialTheme.colorScheme.primary
-                        isOperator -> MaterialTheme.colorScheme.primary.copy(alpha = 0.15f)
-                        isAction -> MaterialTheme.colorScheme.surface
-                        else -> MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)
-                    }
-
+                    val containerColor = if (key == "=") MaterialTheme.colorScheme.primary else Color.Transparent
                     val contentColor = when {
                         key == "=" -> Color.White
-                        isOperator -> MaterialTheme.colorScheme.primary
-                        else -> MaterialTheme.colorScheme.onBackground
+                        isNumber -> MaterialTheme.colorScheme.onBackground
+                        else -> MaterialTheme.colorScheme.primary
                     }
 
                     Box(
@@ -575,23 +614,69 @@ fun ScientificCalculatorScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(44.dp)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(CircleShape)
                             .background(containerColor)
                             .combinedClickable(
-                                onClick = { viewModel.onCalcInput(key) },
+                                onClick = {
+                                    when (key) {
+                                        "⌫" -> viewModel.onCalcInput("C")
+                                        "toggle_basic" -> onBack()
+                                        else -> viewModel.onCalcInput(key)
+                                    }
+                                },
                                 onLongClick = {
-                                    if (key == "C") {
+                                    if (key == "⌫") {
                                         viewModel.onCalcInput("AC")
                                     }
                                 }
                             )
                     ) {
-                        Text(
-                            text = key,
-                            fontSize = 17.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = contentColor
-                        )
+                        when (key) {
+                            "⌫" -> {
+                                Icon(
+                                    imageVector = Icons.Default.Backspace,
+                                    contentDescription = "Backspace",
+                                    tint = contentColor,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                            "toggle_basic" -> {
+                                Box(
+                                    modifier = Modifier.size(24.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(13.dp)
+                                            .align(Alignment.TopEnd)
+                                            .border(1.5.dp, contentColor, RoundedCornerShape(3.dp))
+                                    )
+                                    Box(
+                                        modifier = Modifier
+                                            .size(13.dp)
+                                            .align(Alignment.BottomStart)
+                                            .border(1.5.dp, contentColor, RoundedCornerShape(3.dp))
+                                    )
+                                }
+                            }
+                            else -> {
+                                Text(
+                                    text = key,
+                                    fontSize = when {
+                                        key == "=" -> 26.sp
+                                        isNumber -> 24.sp
+                                        key == "AC" -> 18.sp
+                                        else -> 24.sp
+                                    },
+                                    fontWeight = when {
+                                        key == "=" -> FontWeight.Normal
+                                        isNumber -> FontWeight.Normal
+                                        else -> FontWeight.Normal
+                                    },
+                                    color = contentColor
+                                )
+                            }
+                        }
                     }
                 }
             }

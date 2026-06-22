@@ -82,6 +82,9 @@ class MainActivity : ComponentActivity() {
                 onNavigateToMenu = {
                   navigationStack.add(Screen.Home)
                 },
+                onNavigateToScientific = {
+                  navigationStack.add(Screen.ScientificCalc)
+                },
                 onNavigateToHistory = {
                   navigationStack.add(Screen.History)
                 },
